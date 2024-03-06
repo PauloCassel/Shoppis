@@ -1,13 +1,10 @@
-import { FlatList, StyleSheet, Text, View, Image} from "react-native";
+import { SafeAreaView, StyleSheet, Text, Image} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { ProductDTO } from "../types/Products";
 import axios from "axios";
 import { CartContext } from "../contexts/CartContext";
-import { SafeAreaView } from "react-native-safe-area-context";
-import ItemCard from "../components/ItemCard";
 import { showError } from "../components/Toast";
 import { useRoute } from "@react-navigation/native";
-
 
 const Details = () => {
   const route = useRoute()
