@@ -1,7 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ICartItem, ProductDTO } from "../types/Products";
-import { showError } from "../components/Toast";
 
 type CartContextProps = {
   cart: ICartItem[];
@@ -26,21 +25,21 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("@cart", jsonValue);
     } catch (error) {
-      showError("Não foi possível salvar o carrinho");
     }
   };
 
   const getCart = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@cart");
-      const cartData = jsonValue !== null ? JSON.parse(jsonValue) : null;
+      const cartData = jsonValue !== null ? JSON.parse(jsonValue) : [];
       setCart(cartData);
     } catch (error) {
-      showError("Não foi possível recuperar o carrinho");
+
     }
   };
 
   const addProduct = (value: ProductDTO) => {
+    console.log('add', cart, value)
     const existingProduct = cart.find(({ product }) => value.id === product.id);
 
     if (existingProduct) {
@@ -61,7 +60,20 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  const removeProduct = () => {};
+  const removeProduct = (id: number) => {
+    const index = cart.findIndex(c => c.product.id === id)
+    if (cart[index].quantity === 1) {
+      const clone = [...cart];
+      const filter = clone.filter(c => c.product.id !== id);
+      storeCart(filter)
+      setCart(filter)
+    } else {
+      const clone = [...cart];
+      clone[index].quantity -= 1
+      storeCart(clone)
+      setCart(clone)
+    }
+  };
 
   return (
     <CartContext.Provider value={{ cart, getCart, addProduct, removeProduct }}>
