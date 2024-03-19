@@ -39,7 +39,6 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
   };
 
   const addProduct = (value: ProductDTO) => {
-    console.log('add', cart, value)
     const existingProduct = cart.find(({ product }) => value.id === product.id);
 
     if (existingProduct) {

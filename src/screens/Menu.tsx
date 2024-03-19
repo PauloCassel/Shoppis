@@ -41,8 +41,13 @@ export default Menu;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    elevation: 3,
+    marginVertical: 8,
+    marginHorizontal: 16,
     alignItems: "center",
-    justifyContent: "center",
+    padding: 12,
+    flex: 1
   },
 });

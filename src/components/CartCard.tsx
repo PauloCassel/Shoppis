@@ -11,22 +11,18 @@ interface Props {
 
 const CartCard = ({ item }: Props) => {
     const { removeProduct } = useContext(CartContext);
-    
+
     return (
-        <View style={styles.cardContainer}>
+        <View style={styles.produto}>
             <Text style={styles.quantity}>x{item.quantity}</Text>
-            <Image
-                resizeMode="cover"
-                style={styles.image}
-                source={{ uri: item.product.thumbnail }}
-            />
-            <View style={styles.infoContainer}>
+            <Image resizeMode="cover" style={styles.imagem} source={{ uri: item.product.thumbnail }}/>
+            <View>
                 <Text style={styles.title}>{item.product.title}</Text>
                 <Text style={styles.description}>{item.product.description}</Text>
-                <Text style={styles.price}>$ {item.product.price}</Text>
-                <TouchableOpacity onPress={() => removeProduct(item.product.id) } style={styles.removeBtn}>
-                    <MaterialIcons name="delete" size={40} color="red" />
-                </TouchableOpacity>
+                <Text style={styles.price}>$: {item.product.price}</Text>
+                    <TouchableOpacity onPress={() => removeProduct(item.product.id)} style={styles.remover}>
+                        <MaterialIcons name="delete" size={40} color="red" />
+                    </TouchableOpacity>
             </View>
         </View>
     );
@@ -35,7 +31,7 @@ const CartCard = ({ item }: Props) => {
 export default CartCard;
 
 const styles = StyleSheet.create({
-    cardContainer: {
+    produto: {
         backgroundColor: "#ffffff",
         borderRadius: 10,
         elevation: 3,
@@ -45,15 +41,11 @@ const styles = StyleSheet.create({
         padding: 12,
         flex: 1
     },
-    image: {
+    imagem: {
         width: 300,
         height: 200,
         borderRadius: 10,
         marginBottom: 20
-    },
-    infoContainer: {
-        flex: 1,
-        marginLeft: 12,
     },
     title: {
         fontSize: 18,
@@ -74,7 +66,7 @@ const styles = StyleSheet.create({
     quantity: {
         alignSelf: "flex-end"
     },
-    removeBtn: {
+    remover: {
         marginTop: 20,
         alignSelf: "center"
     }
